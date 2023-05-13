@@ -4,7 +4,7 @@ import time
 
 t1 = time.time_ns()
 # начальные данные
-n, m = random.randint(1000, 5000), random.randint(1000, 5000)
+n, m = random.randint(5000, 6000), random.randint(5000, 6000)
 array = []
 for i in range(n):
     array.append([])
@@ -18,17 +18,17 @@ for i in range(n):
     if i == 0:
         array[0].sort()
 
-k = random.choice((random.choice(random.choice(array)), -1))
-# for i in array:
-#     print(i)
-t2 = time.time_ns()
+# k = random.choice((random.choice(random.choice(array)), random.randint(1, 1000)))
+k = random.choice(random.choice(array))
+# for i in array: print(i)
 
 i_, j_ = 0, m-1
 
+t2 = time.time_ns()
 # Оптимальный алгоритм
 for s in array:
     low = i_
-    high = j_ - 1
+    high = j_
     mid = 0
     f = False
     while low <= high:
@@ -36,20 +36,16 @@ for s in array:
         if s[mid] < k:
             low = mid + 1
         elif s[mid] > k:
-            j_ = mid - 1
-            high = mid - 1
+            j_ = high = mid - 1
         else:
-            print(f'k == {k} находится в строке {s} на позиции {mid}')
+            print(f'1) k == {k} находится в строке {s} на позиции {mid}')
             f = True
             break
     if f:
         break
 t3 = time.time_ns()
-
-
-array_ = array.copy()
 # Обычный бинарный поиск
-for s in array_:
+for s in array:
     low = 0
     high = len(s) - 1
     mid = 0
@@ -61,7 +57,7 @@ for s in array_:
         elif s[mid] > k:
             high = mid - 1
         else:
-            print(f'k == {k} находится в строке {s} на позиции {mid}')
+            print(f'2) k == {k} находится в строке {s} на позиции {mid}')
             f = True
             break
     if f:
@@ -72,7 +68,7 @@ for s in array:
     f = False
     for i in s:
         if i == k:
-            print(f'k == {k} находится в строке {s} на позиции {s.index(k)}')
+            print(f'3) k == {k} находится в строке {s} на позиции {s.index(k)}')
             f = True
             break
     if f:
